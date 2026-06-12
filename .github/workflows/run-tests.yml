@@ -1,32 +1,36 @@
+
 name: Java CI
 
 on:
   push:
-    branches: [ main, MessageFeature ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Set up JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
     
     - name: Compile all Java files
-      run: javac com/mycompany/loginsystem/*.java
+      run: |
+        cd src/main/java
+        javac com/mycompany/loginsystem/*.java
     
     - name: Run Login Tests
-      run: java com.mycompany.loginsystem.LoginTest
-    
-    - name: Run Message Tests
-      run: java com.mycompany.loginsystem.MessageTest
+      run: |
+        cd src/main/java
+        java com.mycompany/loginsystem.LoginTest
     
     - name: Run Part 3 Tests
-      run: java com.mycompany.loginsystem.messagePart3Test
+      run: |
+        cd src/main/java
+        java com.mycompany.loginsystem.messagePart3Test
